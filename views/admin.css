@@ -1,0 +1,324 @@
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: content-box;
+  overflow-x: hidden;
+}
+:root {
+  --grayColor: #0c4a6e;
+}
+
+html {
+  font-size: 10px;
+  background-color: aliceblue;
+  font-family: sans-serif;
+}
+/* global  starts */
+button {
+  border: none;
+  background-color: transparent;
+}
+.btn {
+  letter-spacing: 0.03rem;
+  text-transform: uppercase;
+  border: solid thin var(--grayColor);
+  padding: 0.2rem 0.8rem;
+  border-radius: 0.2em;
+  padding: 0.8rem 1.6rem;
+  font-weight: 500;
+  width: fit-content;
+  color: white;
+  background-image: linear-gradient(to right bottom, #4d1d95f3, #334155);
+  letter-spacing: 0.05em;
+  transition: background-color 0.1s;
+  transform-origin: left;
+}
+/*  global ends  */
+
+/* header starts  */
+
+header {
+  background-color: white;
+  height: 10vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0rem 5%;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+.header .header_left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.header_left .logo {
+  aspect-ratio: 1/1;
+  width: 40px;
+  position: relative;
+}
+.logo img {
+  position: absolute;
+  top: 0rem;
+  left: 0rem;
+  width: 100%;
+  height: 100%;
+}
+.header_left .name {
+  font-size: 1.8rem;
+  text-transform: capitalize;
+  letter-spacing: 0.1rem;
+}
+.header_right {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.header_right .btn {
+  border-radius: 0.2em;
+  padding: 0.8rem 1.6rem;
+  font-weight: bold;
+  color: white;
+  letter-spacing: 0.05em;
+}
+.header_right .btn_account {
+  height: 50%;
+  aspect-ratio: 1/1;
+  transform: scale(0.5);
+}
+.btn_logout {
+  background-color: #0c4a6e;
+}
+/* header ends   */
+.main {
+  margin-top: 4.4rem;
+  height: 80vh;
+  display: flex;
+}
+
+.accounts_container {
+  position: relative;
+  width: 98%;
+  display: flex;
+  flex-flow: row-reverse;
+  justify-content: space-around;
+}
+
+.account_detail {
+  background-color: white;
+  z-index: 5;
+  flex-basis: 20%;
+  height: auto;
+  display: flex;
+  flex-flow: column;
+  gap: 0.8rem;
+  padding: 5rem 5%;
+  box-shadow: 0rem 1rem 2rem rgba(0, 0, 0, 0.12);
+  border-radius: 0.4rem;
+}
+.account_list {
+  flex-basis: 60%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  gap: 0.4rem;
+  border: solid thin #0c4a6e12;
+  border-top: solid #0c4a6e;
+  border-radius: 0.4rem;
+  padding: 1.2rem 0rem;
+  overflow-y: scroll;
+  position: relative;
+}
+.account_detail .account_state {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  font-size: 1.4rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  border: solid thin #f97316;
+  padding: 0.4rem 1.6rem;
+  border-radius: 0.4rem;
+}
+.account_detail .close {
+  display: none;
+}
+.account_detail .active {
+  color: var(--grayColor);
+}
+.account_detail .inactive {
+  color: #7316;
+}
+
+.account_detail .detail_image {
+  height: 9em;
+  position: relative;
+  margin-bottom: 2rem;
+  border-radius: 0.2rem;
+}
+.detail_image img {
+  border-radius: 0.2rem;
+  position: absolute;
+  top: 0;
+  left: 5%;
+  height: 100%;
+  aspect-ratio: 1/1;
+}
+.account_detail .detail_text {
+  flex-basis: 70%;
+  display: flex;
+  flex-flow: column;
+  gap: 1.2rem;
+}
+.detail_text .detail {
+  padding: 0rem 5% 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: dashed thin rgba(12, 74, 110, 0.1);
+  flex-basis: 50%;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--grayColor);
+  letter-spacing: 0.04rem;
+  text-transform: capitalize;
+  word-wrap: break-word;
+}
+.detail .key {
+  overflow: hidden;
+}
+.detail .value {
+  overflow: hidden;
+  flex-basis: 40%;
+  text-align: left;
+}
+.account_detail .detail_btns {
+  padding: 2rem 5% 0.4rem;
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+  overflow: hidden;
+}
+.detail_btns .btn {
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  transition: all 0.3s;
+  transform-origin: left;
+  outline: solid transparent;
+}
+.detail_btns .btn:hover {
+  opacity: 0.85;
+}
+
+.account {
+  background-image: linear-gradient(to right bottom, white, #f8fafc);
+  width: 90%;
+  display: flex;
+  /* display: none; */
+  flex-flow: column;
+  justify-content: space-around;
+  min-height: 5rem;
+  padding: 1rem;
+  border-radius: 0.4rem;
+  overflow: hidden;
+}
+.account-image {
+  background-color: red;
+  width: 15%;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  position: relative;
+}
+.account-image img {
+  position: abosolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.account .account-text {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-transform: capitalize;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  color: var(--grayColor);
+}
+.account-text .name {
+}
+.btn {
+}
+.btn_detail:hover {
+  background-color: rgba(12, 74, 110, 0.9);
+}
+@media (max-width: 1250px) {
+  html {
+    font-size: 8px;
+  }
+  .accounts_container {
+    width: 98%;
+    display: flex;
+  }
+
+  .account_detail {
+    flex-basis: 30%;
+  }
+  .account_list {
+    flex-basis: 50%;
+  }
+}
+@media (max-width: 600px) {
+  html {
+    font-size: 8px;
+  }
+  .accounts_container {
+    margin-top: 0px;
+    width: 98%;
+    display: block;
+    flex-flow: column-reverse;
+  }
+
+  .account_detail {
+    padding-top: 15%;
+    height: fit-content;
+    position: absolute;
+    flex-basis: 80%;
+    height: fit-content;
+    width: 70%;
+    left: 11%;
+    top: 5%;
+    gap: 2rem;
+  }
+  .account_detail .detail_text {
+    gap: 1.6rem;
+  }
+  .account_detail .close {
+    position: absolute;
+    top: 5%;
+    left: 7%;
+    display: block;
+    color: red;
+    font-size: 2.54rem;
+  }
+  .account_list {
+    height: auto;
+  }
+  .blured {
+    filter: blur(0.1rem);
+  }
+  .hidden {
+    display: none;
+  }
+  .visible {
+    display: block;
+  }
+  .visible_flex {
+    display: flex;
+  }
+}
