@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 
 const bodyParser = require("body-parser");
 
-const adminRoutes = require("./routes/admin");
 const authRoutes = require("./routes/auth");
+const adminRoutes = require("./routes/admin");
 
 require("dotenv").config();
 const app = express();
@@ -20,7 +20,7 @@ app.use("/admin", adminRoutes);
 app.use("/auth", authRoutes);
 
 mongoose
-  .connect(`mongodb://0.0.0.0:27017/${process.env.DB}`)
+  .connect(`mongodb://0.0.0.0:27017/${process.env.DBNAME}`)
   .then((connected) => {
     app.listen(process.env.PORT);
   })
