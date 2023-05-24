@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 
 exports.logIn = async (req, res, next) => {
   const { username, password } = req.body;
+  console.log(req.body)
   let user = undefined;
   try {
     const accounts = await Account.find({});
@@ -51,6 +52,7 @@ exports.logIn = async (req, res, next) => {
       user: { username: user.username, role: user.role },
     });
   } catch (error) {
+    console.log(error)
     return res.json({
       auth: false,
       user: { username: undefined, role: undefined },

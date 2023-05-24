@@ -105,27 +105,37 @@ exports.updateAccount = async (req, res, next) => {
   const { firstName, lastName, username, role, active, password, accountId } =
     req.body;
   const hashPassword = await bcrypt.hash(password, 12);
-  try {
-    const result = await Account.updateOne(
-      {
-        accountId: accountId,
-      },
-      {
+    const updateInfo= password == "" ?   {
         firstName: firstName,
         lastName: lastName,
         username: username,
         role: role,
         active: active,
-        password: hashPassword,
-      }
+      }:   {
+        firstName: firstName,
+        lastName: lastName,
+        username: username,
+        role: role,
+        active: active,
+        password:hashPassword,
+      };
+
+  try {
+    const result = await Account.updateOne(
+      {
+        accountId: accountId,
+      },
+      updateInfo,
+    
     );
     if (!result.acknowledged) {
       const error = new Error("updating  unsuccesfull");
       throw error;
     }
-
+    console.log('ddd')
     res.json({ status: "success" });
   } catch (error) {
+    console.log("ee")
     res.json({ status: "fail" });
   }
 };
