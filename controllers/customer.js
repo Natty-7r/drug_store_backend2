@@ -85,7 +85,7 @@ exports.prescriptionSearch = (io, socket, prescriptionData) => {
           date: new Date(),
           mimetype: imageType,
         });
-        await prescription.save();
+        const result =  await prescription.save();
         io.emit("prescriptionForPharmacist", prescriptionData);
       }
     });

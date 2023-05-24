@@ -42,6 +42,7 @@ exports.createAccount = async (req, res, next) => {
     if (userAcccount) {
       const error = new Error();
       error.message = "User with the username Already Exists !";
+      error.code = 123;
       error.statusCode = 500;
       throw error;
     }
@@ -60,7 +61,7 @@ exports.createAccount = async (req, res, next) => {
     }
     res.json({ status: "success", userAcccount });
   } catch (error) {
-    res.json({ status: "fail", message: error.message });
+    res.json({ status: "fail", message: error.message ,code:error.code });
   }
 };
 exports.deleteAccount = async (req, res, next) => {

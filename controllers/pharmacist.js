@@ -267,6 +267,7 @@ exports.findPrescription = async (req, res, next) => {
             image: base64String,
           };
           io.emit("prescriptionForPharmacist", imageData);
+           console.log("error")
           return res.json({
             status: "success",
           });
@@ -274,6 +275,7 @@ exports.findPrescription = async (req, res, next) => {
       });
     }
   } catch (error) {
+    console.log(error)
     return res.json({
       status: "fail",
     });
