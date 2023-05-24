@@ -4,7 +4,6 @@ const StockOrder = require("../models/stockOrder");
 const SoldDrugs = require("../models/soldDrugs");
 
 const Request = require("../models/request");
-const RequestDrug = require("../models/requestedDrugs");
 const Prescription = require("../models/prescription");
 
 const { mainRoot } = require("../util/mainRoot");
@@ -51,9 +50,7 @@ exports.requestDrug = async (req, res, next) => {
         requestDate: new Date(),
         requestedDrugs: stockRequests,
       },
-      {
-        include: [RequestDrug],
-      }
+    
     );
     res.json({ status: "success" });
   } catch (error) {

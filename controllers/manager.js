@@ -4,7 +4,6 @@ const SoldDrug = require("../models/soldDrugs");
 const Comment = require("../models/comments");
 
 const Request = require("../models/request");
-const RequestDrug = require("../models/requestedDrugs");
 
 exports.getDrugs = async (req, res, next) => {
   try {
@@ -12,10 +11,7 @@ exports.getDrugs = async (req, res, next) => {
     const stockDrugs = await Stock.find({});
 
     const soldDrugs = await SoldDrug.find({});
-    const storeRequests = await Request.find({
-      where: { sender: "coordinator" },
-      include: RequestDrug,
-    });
+    const storeRequests = await Request.find({ sender: "coordinator"});
     const comments = await Comment.find({});
 
     if (!storeDrugs) {
@@ -105,6 +101,7 @@ exports.clearStoreRequest = async (req, res, next) => {
     const result = await Request.deleteMany({
       sender: "coordinator",
     });
+    console.log(result)
     if (!result.acknowledged) {
       const error = new Error("deleting unsuccesfull");
       error.statusCode = 500;
