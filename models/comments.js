@@ -9,7 +9,6 @@ const CommentSchema = new Schema(
     },
     email: {
       type: String,
-      required: true,
     },
     sender: {
       type: String,

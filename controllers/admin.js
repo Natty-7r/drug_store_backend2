@@ -7,7 +7,7 @@ exports.getIndex = async (req, res, next) => {
     let adminAccount,
       userAcccounts = [];
 
-    adminAccount = await Account.find({
+    adminAccount = await Account.findOne({
       role: "admin",
     });
     userAcccounts = await Account.find({});

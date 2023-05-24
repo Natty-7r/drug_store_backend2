@@ -1,10 +1,6 @@
 const Comment = require("../models/comments");
-
 const StoreOrder = require("../models/storeOrder");
-
 const Request = require("../models/request");
-
-const RequestDrug = require("../models/requestedDrugs");
 
 exports.getIndex = async (req, res, next) => {
   try {
@@ -54,7 +50,7 @@ exports.getIndex = async (req, res, next) => {
 exports.addComment = async (req, res, next) => {
   let { message, username } = req.body;
   try {
-    const comment = Comment.create({
+    const comment = await Comment.create({
       name: username,
       sender: "supplier",
       message,
@@ -62,7 +58,6 @@ exports.addComment = async (req, res, next) => {
       status: "unread",
     });
     const commentSaved = await comment.save();
-
     if (!commentSaved) {
       const error = new Error("ddd");
       throw error;
@@ -91,7 +86,6 @@ exports.sendOrder = async (req, res, next) => {
   const { orders } = req.body;
   try {
     const savedDrug = await StoreOrder.insertMany(orders);
-    // const savedDrug = await StoreOrder.insertMany(orders, { validate: true });
     if (!savedDrug) {
       const error = new Error("updating unsuccesfull");
       error.statusCode = 500;

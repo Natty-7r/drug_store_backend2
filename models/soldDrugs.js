@@ -33,7 +33,7 @@ const SoldDrugsSchema = new Schema(
       required: true,
       default: "unbilled",
     },
-    soldDate: { type: Date, required: true },
+    soldDate: { type: Date, required: true, default: new Date() },
   },
   { timestamps: false }
 );

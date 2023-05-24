@@ -1,10 +1,8 @@
-const { Op } = require("sequelize");
 const Store = require("../models/store");
 const Stock = require("../models/stock");
 const SoldDrug = require("../models/soldDrugs");
 const Comment = require("../models/comments");
 
-const StoreOrder = require("../models/storeOrder");
 const Request = require("../models/request");
 const RequestDrug = require("../models/requestedDrugs");
 
@@ -115,6 +113,44 @@ exports.clearStoreRequest = async (req, res, next) => {
     res.json({ status: "success" });
   } catch (error) {
     res.json({ status: "fail" });
+  }
+};
+exports.clearSoldDrug = async (req, res, next) => {
+  const drugCode = req.params.drugCode;
+  console.log(drugCode);
+  try {
+    const result = await SoldDrug.deleteOne({ drugCode });
+    if (!result.acknowledged)
+      return res.json({
+        status: "fail",
+      });
+    return res.json({
+      status: "success",
+    });
+  } catch (error) {
+    return res.json({
+      status: "fail",
+    });
+  }
+};
+exports.clearSoldDrugs = async (req, res, next) => {
+  const drugsCode = req.params.drugCodes;
+  const drugCodes = drugsCode.split(":");
+  console.log(drugCodes);
+  drugCodes.shift();
+  try {
+    const result = await SoldDrug.deleteMany({ drugCode: { $in: drugCodes } });
+    if (!result.acknowledged)
+      return res.json({
+        status: "fail",
+      });
+    return res.json({
+      status: "success",
+    });
+  } catch (error) {
+    return res.json({
+      status: "fail",
+    });
   }
 };
 exports.searchDrug = async (req, res, next) => {

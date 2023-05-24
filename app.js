@@ -8,7 +8,7 @@ const cors = require("cors");
 const pdfmake = require("pdfmake");
 
 const addDrug = async () => {
-  const Drug = require("./models/soldDrugs");
+  const Drug = require("./models/store");
   const drug = await Drug.create({
     drugCode: 123,
     name: "natinole",
@@ -49,6 +49,8 @@ const customerRoutes = require("./routes/customer");
 const managerRoutes = require("./routes/manager");
 const pharmacistRoutes = require("./routes/pharmacist");
 const cashierRoutes = require("./routes/casher");
+const suppierRoutes = require("./routes/supplier");
+const coordinatorRoutes = require("./routes/coordinator");
 
 const { socketConnection } = require("./util/socket");
 const prescriptionSearch = require("./controllers/customer").prescriptionSearch;
@@ -74,6 +76,9 @@ app.use("/customer", customerRoutes);
 app.use("/manager", managerRoutes);
 app.use("/pharmacist", pharmacistRoutes);
 app.use("/casher", cashierRoutes);
+app.use("/supplier", suppierRoutes);
+app.use("/coordinator", coordinatorRoutes);
+app.use("/manager", managerRoutes);
 
 mongoose
   .connect(`mongodb://0.0.0.0:27017/${process.env.DBNAME}`)

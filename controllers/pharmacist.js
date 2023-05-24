@@ -64,34 +64,40 @@ exports.requestDrug = async (req, res, next) => {
   }
 };
 exports.acceptOrders = async (req, res, next) => {
+  const newDrugs = req.body.newDrugs.map((drug) => {
+    delete drug._id;
+    return drug;
+  });
+
   try {
-    await Stock.destroy({ truncate: true });
-    const newDrugs = req.body.newDrugs.map((drug) => {
-      delete drug.id;
-      return drug;
-    });
-    await Stock.bulkCreate(newDrugs, { validate: true });
-    await StockOrder.destroy({ truncate: true });
-  } catch (error) {}
+    await Stock.deleteMany({});
+    await Stock.insertMany(newDrugs);
+    await StockOrder.deleteMany();
+    return res.json({ status: "success" });
+  } catch (error) {
+    return res.json({ status: "fail" });
+  }
 };
 
 exports.sellDrug = async (req, res, next) => {
   const { drugCode, newAmount } = req.body;
-  const today = new Date();
+
   try {
     let drugSold = await Stock.findOne({ drugCode: drugCode });
-    drugSold = drugSold.dataValues;
-    drugSold.soldDate = today;
-    drugSold.amount -= newAmount;
-    delete drugSold.id;
-
     if (newAmount == 0) result = await Stock.deleteOne({ drugCode: drugCode });
     else
       result = await Stock.findOneAndUpdate(
-        { amount: newAmount },
-        { drugCode: drugCode }
+        { drugCode: drugCode },
+        { amount: newAmount }
       );
-    drugSold = new SoldDrugs(drugSold);
+    drugSold = await SoldDrugs.create({
+      drugCode: drugSold.drugCode,
+      name: drugSold.name,
+      price: drugSold.price,
+      amount: newAmount,
+      expireDate: drugSold.expireDate,
+      supplier: drugSold.supplier,
+    });
     await drugSold.save();
     if (!result) {
       const error = new Error("updating unsuccesfull");

@@ -1,12 +1,9 @@
 const Store = require("../models/store");
-const Drug = require("../models/stock");
 const Stock = require("../models/stock");
 
-const StockOrder = require("../models/stockOrder");
 const StoreOrder = require("../models/storeOrder");
-
 const Request = require("../models/request");
-const RequestDrug = require("../models/requestedDrugs");
+const StockOrder = require("../models/stockOrder");
 
 exports.getDrugs = async (req, res, next) => {
   try {
@@ -115,16 +112,16 @@ exports.deleteDrugs = async (req, res, next) => {
   }
 };
 exports.addRequest = async (req, res, next) => {
-  const date = new Date();
   let { storeRequest } = req.body;
   try {
-    const result = await Request.create({
+    const request = await Request.create({
       sender: "coordinator",
       status: "pending",
       requestDate: new Date(),
       requestedDrugs: storeRequest,
     });
-    if (!result.acknowledged) return res.json({ status: "fail" });
+    const result = await request.save();
+    if (!result) return res.json({ status: "fail" });
     return res.json({ status: "success" });
   } catch (error) {
     console.log("error while sending requst to manager ");
@@ -135,7 +132,7 @@ exports.registerDrugs = async (req, res, next) => {
   try {
     await Store.deleteMany({});
     const newDrugs = req.body.newDrugs.map((drug) => {
-      delete drug.id;
+      delete drug._id;
       return drug;
     });
     await Store.insertMany(newDrugs);
@@ -146,23 +143,20 @@ exports.registerDrugs = async (req, res, next) => {
   }
 };
 exports.addToStock = async (req, res, next) => {
-  const { stockOrders, availbleDrugs } = req.body;
+  let { stockOrders, availbleDrugs } = req.body;
+  stockOrders.forEach((stockOrder) => delete stockOrder._id);
+  availbleDrugs.forEach((availbleDrug) => delete availbleDrug._id);
+  availbleDrugs = availbleDrugs.filter(
+    (availbleDrug) => availbleDrug.amount > 0
+  );
+
   try {
-    Store.destroy({
-      truncate: true,
-    });
-    const updatedAvailableDrugs = availbleDrugs.map((drug) => {
-      delete drug.id;
-      return drug;
-    });
-    const updatedStockOrders = stockOrders.map((drug) => {
-      delete drug.id;
-      return drug;
-    });
-    await Store.insertMany(updatedAvailableDrugs);
-    await StockOrder.insertMany(updatedStockOrders);
+    await Store.deleteMany({});
+    await Store.insertMany(availbleDrugs);
+    await StockOrder.insertMany(stockOrders);
     res.json({ status: "success" });
   } catch (error) {
+    console.log(error);
     res.json({ status: "fail" });
   }
 };
