@@ -57,7 +57,7 @@ exports.getDrugs = async (req, res, next) => {
 };
 exports.updateDrug = async (req, res, next) => {
   const { drugCode, newPrice, newAmount, currentSlide } = req.body;
-
+console.log(req.body)
   let result;
   try {
     if (currentSlide == "availableStore")
@@ -69,9 +69,9 @@ exports.updateDrug = async (req, res, next) => {
     if (currentSlide == "availableStock")
       result = await Stock.findOneAndUpdate(
         { drugCode: drugCode },
-        { drugCode: drugCode }
+       { price: newPrice, amount: newAmount }
       );
-
+   console.log(result)
     if (!result) {
       const error = new Error("updating unsuccesfull");
       error.statusCode = 500;
