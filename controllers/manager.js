@@ -83,14 +83,14 @@ exports.clearComment = async (req, res, next) => {
 exports.orderDrugs = async (req, res, next) => {
   const { storeOrders } = req.body;
   try {
-    const request = Request.create({
+    const request = await Request.create({
       sender: "manager",
       status: "pending",
       requestDate: new Date(),
       requestedDrugs: storeOrders,
     });
     const result = await request.save();
-    if (!result.acknowledged) res.json({ status: "fail" });
+    if (!result) res.json({ status: "fail" });
     res.json({ status: "success" });
   } catch (error) {
     res.json({ status: "fail" });
