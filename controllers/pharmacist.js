@@ -77,7 +77,7 @@ exports.acceptOrders = async (req, res, next) => {
 };
 
 exports.sellDrug = async (req, res, next) => {
-  const { drugCode, newAmount } = req.body;
+  const { drugCode, newAmount ,amountToSell} = req.body;
 
   try {
     let drugSold = await Stock.findOne({ drugCode: drugCode });
@@ -91,7 +91,7 @@ exports.sellDrug = async (req, res, next) => {
       drugCode: drugSold.drugCode,
       name: drugSold.name,
       price: drugSold.price,
-      amount: newAmount,
+      amount: amountToSell,
       expireDate: drugSold.expireDate,
       supplier: drugSold.supplier,
     });
