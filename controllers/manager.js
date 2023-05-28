@@ -113,10 +113,15 @@ exports.clearStoreRequest = async (req, res, next) => {
   }
 };
 exports.clearSoldDrug = async (req, res, next) => {
-  const drugCode = req.params.drugCode;
-  console.log(drugCode);
+  const{drugCode,currentSlide}=  req.body;
   try {
-    const result = await SoldDrug.deleteOne({ drugCode });
+    let result;
+    if(currentSlide=="availableStore")
+    result = await Store.deleteOne({ drugCode });
+    if(currentSlide=="availableStock")
+    result = await Stock.deleteOne({ drugCode });
+    if(currentSlide=="soldDrugs")
+    result = await SoldDrug.deleteOne({ drugCode });
     if (!result.acknowledged)
       return res.json({
         status: "fail",
@@ -125,6 +130,7 @@ exports.clearSoldDrug = async (req, res, next) => {
       status: "success",
     });
   } catch (error) {
+    console.log(error)
     return res.json({
       status: "fail",
     });
