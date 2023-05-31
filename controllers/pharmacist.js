@@ -168,7 +168,8 @@ exports.searchDrug = async (req, res, next) => {
 };
 exports.searchDrugByPrescription = async (req, res, next) => {
   const { socket, io } = require("../util/socket").socketConnection(null);
-  const { drugNames: searchedDrugs, imageName, mimeType } = req.body;
+  const { drugNames, imageName, mimeType } = req.body;
+  const searchedDrugs   =  drugNames.toLowerCase();
   try {
     const filePath = `${mainRoot}/data/images/${imageName}.${mimeType}`;
     return fs.unlink(filePath, async (err) => {

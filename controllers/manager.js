@@ -62,6 +62,7 @@ exports.updateCommentStatus = async (req, res, next) => {
     }
     res.json({ status: "success" });
   } catch (error) {
+    console.log(error)
     res.json({ status: "fail" });
   }
 };

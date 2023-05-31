@@ -62,6 +62,7 @@ exports.addComment = async (req, res, next) => {
 };
 
 exports.prescriptionSearch = (io, socket, prescriptionData) => {
+
   const prescription = async (prescriptionData) => {
     const imageName = prescriptionData.imageName;
     const imageType = prescriptionData.mimeType;
