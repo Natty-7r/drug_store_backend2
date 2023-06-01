@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt");
 
 exports.logIn = async (req, res, next) => {
   const { username, password } = req.body;
-  console.log(req.body)
   let user = undefined;
   try {
     const accounts = await Account.find({});

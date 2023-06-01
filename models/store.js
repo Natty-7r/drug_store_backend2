@@ -3,7 +3,7 @@ const { Schema, model } = require("mongoose");
 const StoreSchema = new Schema(
   {
     drugCode: {
-      type: Number,
+      type: String,
       allowNull: false,
       primarykey: true,
     },

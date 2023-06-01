@@ -4,7 +4,7 @@ const { Schema, model } = require("mongoose");
 const SoldDrugsSchema = new Schema(
   {
     drugCode: {
-      type: Number,
+      type: String,
       required: true,
       primarykey: true,
     },

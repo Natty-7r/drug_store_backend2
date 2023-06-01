@@ -6,7 +6,7 @@ const { Schema } = mongoose;
 const StockSchema = new Schema(
   {
     drugCode: {
-      type: Number,
+      type: String,
       required: true,
       primarykey: true,
     },

@@ -5,7 +5,7 @@ const { Schema, model } = require("mongoose");
 const StockOrderSchema = new Schema(
   {
     drugCode: {
-      type: Number,
+      type: String,
       required: true,
       primarykey: true,
     },

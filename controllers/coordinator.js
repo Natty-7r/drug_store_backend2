@@ -137,6 +137,7 @@ exports.registerDrugs = async (req, res, next) => {
     await StoreOrder.deleteMany({});
     res.json({ status: "success" });
   } catch (error) {
+    console.log(error);
     res.json({ status: "fail" });
   }
 };
