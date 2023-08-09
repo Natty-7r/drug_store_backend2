@@ -77,7 +77,8 @@ exports.prescriptionSearch = (io, socket, prescriptionData) => {
     fs.writeFile(filePath, imageBuffer, async (err, data) => {
       if (err) {
         socket.emit("uploadError", {
-          message: "failed to upload Presicription image!",
+          imageName :prescriptionData.imageName,
+         
         });
       } else {
         const prescription = await Prescriptions.create({
